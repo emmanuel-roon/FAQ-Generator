@@ -58,8 +58,8 @@ if st.session_state.step == 2:
     if st.button("🔎 Run Search"):
             st.session_state.query_settings = {}
             for mt in all_main_topics:
-        val = st.text_input(f"Enter subtopics for {mt} (comma-separated):", key=f"subtopics_{mt}")
-        subtopics[mt] = [v.strip() for v in val.split(",") if v.strip()]
+                val = st.text_input(f"Enter subtopics for {mt} (comma-separated):", key=f"subtopics_{mt}")
+                subtopics[mt] = [v.strip() for v in val.split(",") if v.strip()]
                 subs = subtopics.get(mt, [])
                 if subs:
                     for s in subs:
