@@ -51,12 +51,15 @@ if st.session_state.step == 2:
         subtopics = {}
         for mt in all_main_topics:
         val = st.text_input(f"Enter subtopics for {mt} (comma-separated):", key=f"subtopics_{mt}")
-            subtopics[mt] = [v.strip() for v in val.split(",") if v.strip()]
+        subtopics[mt] = [v.strip() for v in val.split(",") if v.strip()]
+        val = st.text_input(f"Enter subtopics for {mt} (comma-separated):", key=f"subtopics_{mt}")
     url_limit = st.slider("🔢 Number of URLs to extract per query", key="url_limit_slider", min_value=1, max_value=15, value=3)
     manual_urls = st.text_area("🌐 Manually Add Important URLs (one per line)")
     if st.button("🔎 Run Search"):
             st.session_state.query_settings = {}
             for mt in all_main_topics:
+        val = st.text_input(f"Enter subtopics for {mt} (comma-separated):", key=f"subtopics_{mt}")
+        subtopics[mt] = [v.strip() for v in val.split(",") if v.strip()]
                 subs = subtopics.get(mt, [])
                 if subs:
                     for s in subs:
