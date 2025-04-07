@@ -66,13 +66,15 @@ if st.session_state.step == 2:
     manual_urls = st.text_area("🌐 Manually Add Important URLs (one per line)")
     if st.button("🔎 Run Search"):
         st.session_state.query_settings = {}
-        if subs:
-            for s in subs:
-                st.session_state.query_settings[f"{topic} {mt} {s}"] = url_limit
-        else:
-            st.session_state.query_settings[f"{topic} {mt}"] = url_limit
-            st.session_state.manual_urls = [u.strip() for u in manual_urls.splitlines() if u.strip()]
-            st.session_state.step = 3
+        for mt in all_main_topics:
+            subs = subtopics.get(mt, [])
+            if subs:
+                for s in subs:
+                    st.session_state.query_settings[f"{topic} {mt} {s}"] = url_limit
+            else:
+                st.session_state.query_settings[f"{topic} {mt}"] = url_limit
+        st.session_state.manual_urls = [u.strip() for u in manual_urls.splitlines() if u.strip()]
+        st.session_state.step = 3
 
 # === STEP 3 ===
 if st.session_state.step == 3:
