@@ -50,7 +50,7 @@ if st.session_state.step == 2:
     if all_main_topics:
         subtopics = {}
         for mt in all_main_topics:
-        val = st.text_input(f"Enter subtopics for {mt} (comma-separated):", key=f"subtopics_{mt}")
+            val = st.text_input(f"Enter subtopics for {mt} (comma-separated):", key=f"subtopics_{mt}")
         subtopics[mt] = [v.strip() for v in val.split(",") if v.strip()]
         val = st.text_input(f"Enter subtopics for {mt} (comma-separated):", key=f"subtopics_{mt}")
     url_limit = st.slider("🔢 Number of URLs to extract per query", key="url_limit_slider", min_value=1, max_value=15, value=3)
