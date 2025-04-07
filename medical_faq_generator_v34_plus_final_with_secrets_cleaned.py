@@ -1,9 +1,8 @@
-
 import streamlit as st
 # ✅ Load API and CX credentials from Streamlit Secrets
-google_key = st.secrets["api"]["google_api_key"]
-openai_key = st.secrets["api"]["openai_api_key"]
-google_cx = st.secrets["api"]["cx_id"]
+GOOGLE_API_KEY = st.secrets["api"]["google_api_key"]
+OPENAI_API_KEY = st.secrets["api"]["openai_api_key"]
+CX_ID = st.secrets["api"]["cx_id"]
 
 import openai
 import os
@@ -24,9 +23,11 @@ if "step" not in st.session_state:
     st.session_state.step = 1
 
 
+topic = st.text_input("Enter a medical topic (e.g., asthma, diabetes):")
+
 if st.session_state.step == 1:
-    if all([openai_key, google_key, google_cx, topic]):
-        st.session_state.client = openai.OpenAI(api_key=openai_key)
+    if all([OPENAI_API_KEY, GOOGLE_API_KEY, CX_ID, topic]):
+        st.session_state.client = openai.OpenAI(api_key=OPENAI_API_KEY)
         st.session_state.topic = topic
         st.success("✅ Keys and topic received.")
         st.session_state.step = 2
@@ -91,7 +92,7 @@ if st.session_state.step == 3:
         with st.spinner(f"Searching: {q}"):
             current_index = list(st.session_state.query_settings).index(q)
             progress_value = list(st.session_state.query_settings).index(q) / len(st.session_state.query_settings)
-            found = google_search(q, google_key, google_cx, lim)
+            found = google_search(q, GOOGLE_API_KEY, CX_ID, lim)
             st.markdown(f"🔗 **{q}** → {len(found)} URLs")
             all_urls.extend(found)
             all_urls.extend(st.session_state.manual_urls)
