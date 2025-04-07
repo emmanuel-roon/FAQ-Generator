@@ -67,10 +67,6 @@ if st.session_state.step == 2:
     manual_urls = st.text_area("🌐 Manually Add Important URLs (one per line)")
     if st.button("🔎 Run Search"):
             st.session_state.query_settings = {}
-            for mt in all_main_topics:
-                val = st.text_input(f"Enter subtopics for {mt} (comma-separated):", key=f"subtopics_{mt}")
-                subtopics[mt] = [v.strip() for v in val.split(",") if v.strip()]
-                subs = subtopics.get(mt, [])
                 if subs:
                     for s in subs:
                         st.session_state.query_settings[f"{topic} {mt} {s}"] = url_limit
