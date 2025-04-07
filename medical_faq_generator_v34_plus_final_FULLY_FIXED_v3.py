@@ -45,7 +45,15 @@ if st.session_state.step == 2:
     selected_predefined = st.multiselect("✔️ Choose main topics:", predefined_sections)
     custom_topics = st.text_area("➕ Additional topics (one per line):")
     manual_list = [t.strip() for t in custom_topics.splitlines() if t.strip()]
-    all_main_topics = selected_predefined + [t for t in manual_list if t.lower() not in map(str.lower, selected_predefined)]
+    combined = selected_predefined + manual_list
+    seen = set()
+    all_main_topics = []
+    for t in combined:
+        t_lower = t.strip().lower()
+        if t_lower and t_lower not in seen:
+            seen.add(t_lower)
+            all_main_topics.append(t.strip())
+
 
     if all_main_topics:
         subtopics = {}
